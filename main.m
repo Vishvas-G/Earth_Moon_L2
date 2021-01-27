@@ -73,17 +73,26 @@ for k=1:length(t);
     XC=[x_m(k),y_m(k),z_m(k)];
     hold on
     %view([1,1,1]);
-    %view([90,90])
-    campos([x_s(k),y_s(k),z_s(k)]);
+    view([90,90])
+    %campos([x_s(k),y_s(k),z_s(k)]);
     surf(p,q,r);
     axis(7e5*[-1,1,-1,1,-1,1,]);
     plot3(x_m(k),y_m(k),z_m(k),'r.');
     plot3(x_s(k),y_s(k),z_s(k),'b.');
     
     plot3(x_m(1:k),y_m(1:k),z_m(1:k),'r-');
-    %plot3(x_s(1:k),y_s(1:k),z_s(1:k),'b-');
+    plot3(x_s(1:k),y_s(1:k),z_s(1:k),'b-');
+    F(k)=getframe(gcf);
     pause(0.01);
     if k<length(t);
         clf;
     end
 end
+
+video = VideoWriter('L2_simulation.mp4','MPEG-4');
+video.FrameRate=60;
+open(video)
+writeVideo(video,F);
+close(video)
+
+
